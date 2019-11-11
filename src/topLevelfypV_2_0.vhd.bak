@@ -1,0 +1,130 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use work.all;
+use work.MyPackage.all;
+
+entity topLevelfypV_2_0 is
+   port (
+		--clock and reset--
+		clkRef 		: in STD_LOGIC;
+		btnRst		: in STD_LOGIC;
+		
+		--push buttons and slide switches --
+		swResend 		: in STD_LOGIC :='0';
+		swBinarize 		: in STD_LOGIC:='0';
+		swCaptureFrame	: in STD_LOGIC:='0';	
+		
+		-- HDMI Configeration and data -- 
+		HDMI_TX_DATA	: out  STD_LOGIC_vector(23 downto 0);
+		HDMI_TX_VS		: out  STD_LOGIC;
+		HDMI_TX_HS		: out  STD_LOGIC;
+		HDMI_TX_DE		: out  STD_LOGIC;
+		HDMI_TX_CLK		: out  STD_LOGIC;
+		HDMI_TX_INT		: in  STD_LOGIC;
+		HDMI_I2C_SDA	: inout  STD_LOGIC;
+		HDMI_I2C_SCL	: out  STD_LOGIC;
+      
+		--GPIO for connect camera --
+		GPIO_cam_pclk  : in STD_LOGIC;
+		GPIO_cam_xclk  : out STD_LOGIC;
+		GPIO_cam_vsync : in STD_LOGIC;
+		GPIO_cam_href  : in STD_LOGIC;
+		GPIO_cam_data  : in STD_LOGIC_vector(7 downto 0);
+		GPIO_cam_sioc  : out STD_LOGIC;
+		GPIO_cam_siod  : inout STD_LOGIC;
+		GPIO_cam_pwdn  : out STD_LOGIC;
+		GPIO_cam_reset : out STD_LOGIC;
+		
+		--on board led--
+		ledRegDone 	: out STD_LOGIC;
+		ledRun			:out std_logic
+
+   );
+end entity topLevelfypV_2_0;
+
+architecture arc of topLevelfypV_2_0 is
+
+signal clk25				: std_logic;
+signal clk50				: std_logic;
+signal clk100				: std_logic;
+signal rst					: std_logic;
+signal pllLocked			: std_logic;
+
+signal hsyncReg			: std_logic;
+signal vsyncReg			: std_logic;
+signal dataEReg			: std_logic;
+signal dataOutReg			: std_logic_vector(23 downto 0);
+signal pclkReg				: std_logic;
+
+
+begin
+
+rst	<= btnRst;
+ledRun<= pllLocked;
+
+Inst_pll: pll
+  PORT MAP
+  (
+		refclk   => clkRef,
+		rst      => not rst,
+		outclk_0 => clk25,
+		outclk_1 => clk50,
+		outclk_2 => clk100,
+		locked   => pllLocked
+  );
+
+Inst_CameraWrapper:CameraWrapper
+   port map (
+		-- clock reset --
+		clk25 						=> clk25,
+		rst	 						=> rst,
+		-- camera pins --
+		camera_pclk  =>	GPIO_cam_pclk,
+		camera_xclk  =>	GPIO_cam_xclk,
+		camera_vsync =>	GPIO_cam_vsync,
+		camera_href  =>	GPIO_cam_href,
+		camera_data  =>	GPIO_cam_data,
+		camera_sioc  =>	GPIO_cam_sioc,
+		camera_siod  =>	GPIO_cam_siod,
+		camera_pwdn  =>	GPIO_cam_pwdn,
+		camera_reset =>	GPIO_cam_reset,
+		
+		--data out --
+		dataOut 		 =>	dataOutReg,
+		hSync			 => 	hsyncReg,
+		vSync			 =>	vsyncReg,
+		dataE			 =>	dataEReg,
+		clkOut		 =>	pclkReg
+		
+   );
+	
+Inst_HdmiWrapper : HdmiWrapper 
+Port map( 
+	clk25    	=>	clk25,
+	rst 			=>	rst,
+	
+	hdmiSioc  	=>	HDMI_I2C_SCL,
+	hdmiSiod  	=>	HDMI_I2C_SDA,
+	
+	redIn 		=> dataOutReg(23 downto 16),
+	greenIn 		=>	dataOutReg(15 downto  8),
+	blueIn 		=>	dataOutReg( 7 downto  0),
+	
+	hSync			=>	hsyncReg,
+	vSync			=>	vsyncReg,
+	dataE			=>	dataEReg,
+	pclk		 	=>	pclkReg,
+	
+	hdmiData 	=>	HDMI_TX_DATA,
+	hdmiClk 		=>	HDMI_TX_CLK,
+	hdmiTxHs		=>	HDMI_TX_HS,
+	hdmiTxVs 	=>	HDMI_TX_VS,
+	hdmiTxDe 	=>	HDMI_TX_DE
+);
+
+
+
+
+
+end architecture arc;

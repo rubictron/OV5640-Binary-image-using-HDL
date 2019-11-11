@@ -1,0 +1,111 @@
+-----------------------------------------------------------------------------------
+-- Rubictron(p.asithasandakalum@gmail.com)
+-----------------------------------------------------------------------------------
+library ieee_proposed;
+use ieee_proposed.fixed_pkg.all;
+use ieee_proposed.numeric_std_unsigned.all;
+use ieee_proposed.env.all;
+use ieee_proposed.fixed_float_types.all;
+use ieee_proposed.float_pkg.all;
+use ieee_proposed.math_utility_pkg.all;
+use ieee_proposed.numeric_std_additions.all;
+use ieee_proposed.standard_additions.all;
+use ieee_proposed.std_logic_1164_additions.all;
+-----------------------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+-----------------------------------------------------------------------------------
+entity RGBToGrayScaler is
+	port(
+		iCLK		:  in std_logic;
+		iRST		:  in std_logic;
+		iRed		:  in std_logic_vector(7 downto 0);
+		iGreen	:  in std_logic_vector(7 downto 0);
+		iBlue		:  in std_logic_vector(7 downto 0);
+		oChannel	: out std_logic_vector(7 downto 0) := (OTHERS => '0');
+		wrin		: in std_logic;
+		wrout		: out std_logic;
+		waddressIn : in std_logic_vector(19 downto 0) := (OTHERS => '0');
+		waddressOut: out std_logic_vector(19 downto 0) := (OTHERS => '0')
+	);
+end RGBToGrayScaler;
+-----------------------------------------------------------------------------------
+architecture arch of RGBToGrayScaler is
+
+component delay is
+	generic(
+	data_width : integer := 8
+	); 
+	port(
+		iCLK		:  in std_logic;												
+		iChannel	:  in std_logic_vector(data_width-1 downto 0);
+		oChannel	: out std_logic_vector(data_width-1 downto 0)
+		
+	);
+end component;
+
+	signal nRed,nBlue,nGreen : ufixed(9 downto -6) := (OTHERS => '0') ;
+	constant xR  : ufixed( 0 downto - 6) := "0010011";
+	constant xG  : ufixed( 0 downto - 6) := "0100101";
+	constant xB  : ufixed( 0 downto - 6) := "0000001";
+	signal   sum : ufixed(12 downto -12) := (OTHERS => '0');
+	signal	 Red,Green,Blue : integer := 0;
+	
+	signal delayin : std_logic_vector (20 downto 0):=(others=>'0');
+	signal delayout : std_logic_vector (20 downto 0):=(others=>'0');
+-----------------------------------------------------------------------------------
+begin
+
+	Red    <= to_integer(iRed);					
+	Green  <= to_integer(iGreen);					 
+	Blue   <= to_integer(iBlue);
+
+	delayin <= waddressIn & wrin;
+	waddressOut <= delayout(20 downto 1);
+	wrout <= delayout(0);
+	
+	
+-----------------------------------------------------------------------------------
+
+Inst1_Delay: Delay 	
+	generic map(
+		data_width => 21
+	) 
+	port map(
+		iCLK		=>	iClK,										
+		iChannel	=> delayin,
+		oChannel	=> delayout
+		
+	);
+	
+  
+  -----------------------------------------------------------------------------------
+	process(iCLK,iRST)
+	begin
+		if(iRST = '0') then
+		elsif(iCLK'event AND iCLK = '1') then
+			nRed	 <= to_ufixed(Red  ,9,-6);		
+			nGreen <= to_ufixed(Green,9,-6);		
+			nBlue  <= to_ufixed(Blue ,9,-6); 	
+		end if;
+	end process;
+-----------------------------------------------------------------------------------
+	process(iCLK,iRST)
+	begin
+		if(iRST = '0') then
+		elsif(iCLK'event AND iCLK = '1') then
+			sum <= nRed*xR + nGreen*xG + nBlue*xB;	
+		end if;
+	end process;
+-----------------------------------------------------------------------------------
+	process(iCLK,iRST)
+	begin
+		if(iRST = '0') then
+			oChannel <= (OTHERS => '0');				  
+		elsif(iCLK'event AND iCLK = '1') then			 
+			oChannel <= to_slv(sum(7 downto 0));	
+		end if;
+	end process;
+-----------------------------------------------------------------------------------
+end arch;

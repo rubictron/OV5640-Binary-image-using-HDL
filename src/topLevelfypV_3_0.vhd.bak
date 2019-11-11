@@ -1,0 +1,172 @@
+library IEEE;
+use IEEE.std_logic_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use work.all;
+use work.MyPackage.all;
+
+entity topLevelfypV_3_0 is
+   port (
+		--clock and reset--
+		clkRef 		: in std_logic;
+		btnRst		: in std_logic;
+		
+		--push buttons and slide switches --
+		swResend 		: in std_logic :='0';
+		swProcess		: in std_logic;
+		swBinarize 		: in std_logic:='0';
+		swCaptureFrame	: in std_logic:='0';	
+		
+		-- HDMI Configeration and data -- 
+		HDMI_TX_DATA	: out  std_logic_vector(23 downto 0);
+		HDMI_TX_VS		: out  std_logic;
+		HDMI_TX_HS		: out  std_logic;
+		HDMI_TX_DE		: out  std_logic;
+		HDMI_TX_CLK		: out  std_logic;
+		HDMI_TX_INT		: in  std_logic;
+		HDMI_I2C_SDA	: inout  std_logic;
+		HDMI_I2C_SCL	: out  std_logic;
+      
+		--GPIO for connect camera --
+		GPIO_cam_pclk  : in std_logic;
+		GPIO_cam_xclk  : out std_logic;
+		GPIO_cam_vsync : in std_logic;
+		GPIO_cam_href  : in std_logic;
+		GPIO_cam_data  : in std_logic_vector(7 downto 0);
+		GPIO_cam_sioc  : out std_logic;
+		GPIO_cam_siod  : inout std_logic;
+		GPIO_cam_pwdn  : out std_logic;
+		GPIO_cam_reset : out std_logic;
+		
+		--on board led--
+		ledRegDone 	: out std_logic;
+		ledRun			:out std_logic
+
+   );
+end entity topLevelfypV_3_0;
+
+architecture arc of topLevelfypV_3_0 is
+
+signal clk25				: std_logic;
+signal clk50				: std_logic;
+signal clk100				: std_logic;
+signal reset					: std_logic;
+signal pllLocked			: std_logic;
+
+signal hsyncReg			: std_logic;
+signal vsyncReg			: std_logic;
+signal dataEReg			: std_logic;
+signal dataOutReg			: std_logic_vector(23 downto 0);
+signal pclkReg				: std_logic;
+
+signal hdmiDataReg		: std_logic_vector(23 downto 0);
+signal hdmiClkReg 		: std_logic;
+signal hdmiTxHsReg		: std_logic;
+signal hdmiTxVsReg 		: std_logic;
+signal hdmiTxDeReg		: std_logic;
+
+signal red : std_logic_vector(7 downto 0);
+signal green : std_logic_vector(7 downto 0);
+signal blue : std_logic_vector(7 downto 0);
+
+signal sync_N:std_logic;
+
+signal hdmirdaddress: std_logic_vector(19 downto 0);
+
+
+begin
+
+reset	<= btnRst;
+ledRun<= pllLocked;
+
+red <= (others => '1');
+green <= (others => '0');
+blue <= (others => '0');
+
+Inst_pll: pll
+  PORT MAP
+  (
+		refclk   => clkRef,
+		rst      => not reset,
+		outclk_0 => clk25,
+		outclk_1 => clk50,
+		outclk_2 => clk100,
+		locked   => pllLocked
+  );
+
+--Inst_CameraWrapper:CameraWrapper
+--   port map (
+--		-- clock reset --
+--		clk25 		=> clk25,
+--		rst	 		=> rst,
+--		-- camera pins --
+--		camera_pclk  =>	GPIO_cam_pclk,
+--		camera_xclk  =>	GPIO_cam_xclk,
+--		camera_vsync =>	GPIO_cam_vsync,
+--		camera_href  =>	GPIO_cam_href,
+--		camera_data  =>	GPIO_cam_data,
+--		camera_sioc  =>	GPIO_cam_sioc,
+--		camera_siod  =>	GPIO_cam_siod,
+--		camera_pwdn  =>	GPIO_cam_pwdn,
+--		camera_reset =>	GPIO_cam_reset,
+--		
+--		--data out --
+--		dataOut 		 =>	dataOutReg,
+--		hSync			 => 	hsyncReg,
+--		vSync			 =>	vsyncReg,
+--		dataE			 =>	dataEReg,
+--		clkOut		 =>	pclkReg
+--		
+--   );
+	
+--Inst_ProcessingWrapper : ProcessingWrapper
+--port map(
+--	
+--	swProcess	=> swProcess,
+--	swBinarize	=> swBinarize,
+--	
+--	dataIn 		=> dataOutReg,
+--	hSync			=> hsyncReg,
+--	vSync			=> vsyncReg,
+--	dataE			=> dataEReg,
+--	pclk		 	=> pclkReg,
+--
+--	hdmiData 	=>	hdmiDataReg,
+--	hdmiClk 		=>	hdmiClkReg,
+--	hdmiTxHs		=>	hdmiTxHsReg,
+--	hdmiTxVs 	=>	hdmiTxVsReg,
+--	hdmiTxDe 	=>	hdmiTxDeReg
+--);
+
+	
+
+
+
+Inst_HdmiWrapper: HdmiWrapper PORT MAP(
+		clkI2c    			=> clk50,
+		clkHdmi    			=> clk25,
+		reset					=> reset,
+		
+		resend 				=> swResend,
+		config_finished 	=> ledRegDone,
+		hdmiSioc  			=> HDMI_I2C_SCL,
+		hdmiSiod  			=> HDMI_I2C_SDA,
+		
+		redIn 				=> red,
+		greenIn 				=> green,
+		blueIn 				=> blue,
+		
+		hdmiData 			=> HDMI_TX_DATA,
+		
+		hdmiClk 				=> HDMI_TX_CLK,
+		hdmiTxHs				=> HDMI_TX_HS,
+		hdmiTxVs 			=> HDMI_TX_VS,
+		nBlank 				=> HDMI_TX_DE,
+		sync_N 				=> sync_N,
+		
+		rdaddress			=> hdmirdaddress
+  );
+
+
+
+
+end architecture arc;

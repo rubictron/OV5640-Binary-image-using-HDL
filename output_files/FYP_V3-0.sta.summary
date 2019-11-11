@@ -1,0 +1,229 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1100mV 85C Model Setup 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : -7.428
+TNS   : -3501.731
+
+Type  : Slow 1100mV 85C Model Setup 'GPIO_cam_pclk'
+Slack : -4.515
+TNS   : -152.930
+
+Type  : Slow 1100mV 85C Model Setup 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 12.974
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Setup 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 31.971
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.328
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.334
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'GPIO_cam_pclk'
+Slack : 0.418
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : 0.702
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : -2.636
+TNS   : -4882.567
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'GPIO_cam_pclk'
+Slack : -0.538
+TNS   : -32.584
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]'
+Slack : 1.666
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 8.588
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'clkRef'
+Slack : 9.949
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 18.575
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Setup 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : -7.178
+TNS   : -3260.270
+
+Type  : Slow 1100mV 0C Model Setup 'GPIO_cam_pclk'
+Slack : -4.486
+TNS   : -152.214
+
+Type  : Slow 1100mV 0C Model Setup 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 12.981
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Setup 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 32.231
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.312
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.314
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'GPIO_cam_pclk'
+Slack : 0.400
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : 0.653
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : -2.636
+TNS   : -4863.133
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'GPIO_cam_pclk'
+Slack : -0.538
+TNS   : -32.710
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]'
+Slack : 1.666
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 8.543
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'clkRef'
+Slack : 9.980
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 18.529
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Setup 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : -3.098
+TNS   : -1648.951
+
+Type  : Fast 1100mV 85C Model Setup 'GPIO_cam_pclk'
+Slack : -2.044
+TNS   : -66.341
+
+Type  : Fast 1100mV 85C Model Setup 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 16.464
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Setup 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 35.100
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.164
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.181
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'GPIO_cam_pclk'
+Slack : 0.199
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : 0.216
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : -2.174
+TNS   : -3886.116
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'GPIO_cam_pclk'
+Slack : -0.325
+TNS   : -8.797
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]'
+Slack : 1.666
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 8.889
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'clkRef'
+Slack : 9.643
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 18.885
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Setup 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : -2.913
+TNS   : -1333.481
+
+Type  : Fast 1100mV 0C Model Setup 'GPIO_cam_pclk'
+Slack : -1.795
+TNS   : -58.744
+
+Type  : Fast 1100mV 0C Model Setup 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 16.673
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Setup 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 35.637
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'GPIO_cam_pclk'
+Slack : 0.129
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.152
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 0.160
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : 0.199
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'CameraWrapper:Inst_CameraWrapper|OV5640_ML_IP:Inst_OV5640_ML_IP|cmos_decode_v1:cmos_decode_v1_u0|clk_date_o'
+Slack : -2.174
+TNS   : -3870.719
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'GPIO_cam_pclk'
+Slack : -0.320
+TNS   : -9.080
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]'
+Slack : 1.666
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[1].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 8.891
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'clkRef'
+Slack : 9.632
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'Inst_pll|pll_inst|altera_pll_i|general[0].gpll~PLL_OUTPUT_COUNTER|divclk'
+Slack : 18.887
+TNS   : 0.000
+
+------------------------------------------------------------
